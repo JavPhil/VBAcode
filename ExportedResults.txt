@@ -1,0 +1,100 @@
+Option Explicit
+
+Sub ExportedResults()
+Application.ScreenUpdating = False
+Dim lastrow As Integer, i As Integer, p As Integer, q As Integer, r As Integer, j As Integer, k As Integer
+Dim LJwb As Workbook, wb2 As Workbook, datafile As String
+Dim lot1 As Long, lot2 As Long, lot3 As Long, range1, range2, range3 As Variant
+
+Set LJwb = ThisWorkbook
+datafile = LJwb.Sheets(1).Range("AB1").Value
+If Dir$(datafile) = "" Then
+MsgBox "Please first select a file"
+Exit Sub
+End If
+
+Set wb2 = Workbooks.Open(Filename:=datafile)
+
+p = 3
+q = 3
+r = 3
+
+lot1 = LJwb.Worksheets("Level_1").Range("D" & 2).Value
+lot2 = LJwb.Worksheets("Level_2").Range("D" & 2).Value
+lot3 = LJwb.Worksheets("Level_3").Range("D" & 2).Value
+
+wb2.Activate
+lastrow = wb2.Sheets(1).Range("A" & Rows.Count).End(xlUp).Row
+
+For i = 2 To lastrow
+    If Cells(i, 26) = LJwb.Sheets("Level_1").Range("A" & 2).Value And Cells(i, 17) = lot1 Then
+        p = p + 1
+        LJwb.Sheets("Level_1").Range("C" & p).Value = wb2.Sheets(1).Range("AP" & i).Value
+        LJwb.Sheets("Level_1").Range("B" & p).Value = wb2.Sheets(1).Range("BO" & i).Value
+        LJwb.Sheets("Level_1").Range("G2").Value = wb2.Sheets(1).Range("AC" & i).Value
+        LJwb.Sheets("Level_1").Range("C2").Value = wb2.Sheets(1).Range("P" & i).Value
+        If wb2.Sheets(1).Range("AY" & i).Value <> "" Then
+            LJwb.Sheets("Level_1").Range("AA2").Value = wb2.Sheets(1).Range("AY" & i).Value
+            range1 = Split(LJwb.Sheets("Level_1").Range("AA2").Value, "-")
+            LJwb.Sheets("Level_1").Range("AA2").Resize(UBound(range1) - LBound(range1) + 1).Value = Application.Transpose(range1)
+            LJwb.Sheets("Level_1").Range("M4").Value = LJwb.Sheets("Level_1").Range("AA3").Value
+            LJwb.Sheets("Level_1").Range("M5").Value = LJwb.Sheets("Level_1").Range("AA2").Value
+        End If
+    End If
+    Next i
+
+For j = 2 To lastrow
+    If Cells(j, 26) = LJwb.Sheets("Level_2").Range("A" & 2).Value And Cells(j, 17) = lot2 Then
+        q = q + 1
+        LJwb.Sheets("Level_2").Range("C" & q).Value = wb2.Sheets(1).Range("AP" & j).Value
+        LJwb.Sheets("Level_2").Range("B" & q).Value = wb2.Sheets(1).Range("BO" & j).Value
+        LJwb.Sheets("Level_2").Range("G2").Value = wb2.Sheets(1).Range("AC" & j).Value
+        LJwb.Sheets("Level_2").Range("C2").Value = wb2.Sheets(1).Range("P" & j).Value
+        If wb2.Sheets(1).Range("AY" & j).Value <> "" Then
+            LJwb.Sheets("Level_2").Range("AA2").Value = wb2.Sheets(1).Range("AY" & j).Value
+            range2 = Split(LJwb.Sheets("Level_2").Range("AA2").Value, "-")
+            LJwb.Sheets("Level_2").Range("AA2").Resize(UBound(range2) - LBound(range2) + 1).Value = Application.Transpose(range2)
+            LJwb.Sheets("Level_2").Range("M4").Value = LJwb.Sheets("Level_2").Range("AA3").Value
+            LJwb.Sheets("Level_2").Range("M5").Value = LJwb.Sheets("Level_2").Range("AA2").Value
+        End If
+    End If
+    Next j
+    
+For k = 2 To lastrow
+    If Cells(k, 26) = LJwb.Sheets("Level_3").Range("A" & 2).Value And Cells(k, 17) = lot3 Then
+        r = r + 1
+        LJwb.Sheets("Level_3").Range("C" & r).Value = wb2.Sheets(1).Range("AP" & k).Value
+        LJwb.Sheets("Level_3").Range("B" & r).Value = wb2.Sheets(1).Range("BO" & k).Value
+        LJwb.Sheets("Level_3").Range("G2").Value = wb2.Sheets(1).Range("AC" & k).Value
+        LJwb.Sheets("Level_3").Range("C2").Value = wb2.Sheets(1).Range("P" & k).Value
+        If wb2.Sheets(1).Range("AY" & k).Value <> "" Then
+            LJwb.Sheets("Level_3").Range("AA2").Value = wb2.Sheets(1).Range("AY" & k).Value
+            range3 = Split(LJwb.Sheets("Level_3").Range("AA2").Value, "-")
+            LJwb.Sheets("Level_3").Range("AA2").Resize(UBound(range3) - LBound(range3) + 1).Value = Application.Transpose(range3)
+            LJwb.Sheets("Level_3").Range("M4").Value = LJwb.Sheets("Level_3").Range("AA3").Value
+            LJwb.Sheets("Level_3").Range("M5").Value = LJwb.Sheets("Level_3").Range("AA2").Value
+        End If
+    End If
+    Next k
+    
+    ActiveWorkbook.Close savechanges:=False
+    LJwb.Sheets(1).Activate
+    Application.Run ("ScaleSetAxes")
+    LJwb.Sheets(3).Activate
+    Application.Run ("ScaleSetAxes")
+    LJwb.Sheets(1).Range("I2").Value = "Custom Range (by run #)"
+    LJwb.Sheets(1).Range("L2").Value = "OFF"
+    LJwb.Sheets(1).Range("N2").Value = "ON"
+    LJwb.Sheets(2).Activate
+    Application.Run ("ScaleSetAxes")
+    LJwb.Sheets(2).Range("I2").Value = "Custom Range (by run #)"
+    LJwb.Sheets(2).Range("L2").Value = "OFF"
+    LJwb.Sheets(2).Range("N2").Value = "ON"
+    LJwb.Sheets(3).Activate
+    Application.Run ("ScaleSetAxes")
+    LJwb.Sheets(3).Range("I2").Value = "Custom Range (by run #)"
+    LJwb.Sheets(3).Range("L2").Value = "OFF"
+    LJwb.Sheets(3).Range("N2").Value = "ON"
+    LJwb.Sheets(1).Activate
+       
+End Sub
