@@ -1,0 +1,21 @@
+Option Explicit
+Sub listassays()
+Dim wb1, wb2 As Workbook
+Dim datafill As String
+Set wb1 = ThisWorkbook
+datafill = wb1.Sheets(1).Range("AB1").Value
+Set wb2 = Workbooks.Open(Filename:=datafill)
+
+Dim d As Object, c As Variant, i As Long, lr As Long
+Set d = CreateObject("Scripting.Dictionary")
+lr = Cells(Rows.Count, 1).End(xlUp).Row
+c = wb2.Sheets(1).Range("Z2:Z" & lr)
+For i = 1 To UBound(c, 1)
+    If Len(c(i, 1)) > 0 Then
+        d(c(i, 1)) = 1
+    End If
+Next i
+wb1.Sheets(1).Range("AB3").Resize(d.Count) = Application.Transpose(d.keys)
+wb2.Activate
+ActiveWorkbook.Close savechanges:=False
+End Sub

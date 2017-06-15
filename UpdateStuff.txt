@@ -1,0 +1,28 @@
+
+Option Explicit
+
+Sub UpdateStuff()
+
+If Range("Q7").Value = 1 Then
+    Application.Run ("ScaleAxes")
+Else
+
+If Range("Q7").Value = 2 Then
+    Application.Run ("ScaleDate")
+Else
+ 
+If Range("Q7").Value = 3 Then
+    Application.Run ("ScaleSetAxes")
+   
+Else
+
+    If Range("Q7").Value = 4 Then
+    Application.Run ("ScaleSetDate")
+   
+End If
+End If
+End If
+End If
+
+
+End Sub

@@ -1,0 +1,26 @@
+Option Explicit
+
+Sub PrintThis()
+      Range("A1:R" & Range("F26").Value2).Select
+      ActiveSheet.PageSetup.PrintArea = Selection.Address
+      With ActiveWorkbook.Sheets(1).PageSetup
+        .Orientation = xlLandscape
+        .Zoom = False
+        .FitToPagesWide = 1
+        .FitToPagesTall = False
+      End With
+      With ActiveWorkbook.Sheets(2).PageSetup
+        .Orientation = xlLandscape
+        .Zoom = False
+        .FitToPagesWide = 1
+        .FitToPagesTall = False
+      End With
+      With ActiveWorkbook.Sheets(3).PageSetup
+        .Orientation = xlLandscape
+        .Zoom = False
+        .FitToPagesWide = 1
+        .FitToPagesTall = False
+      End With
+      ActiveSheet.PrintPreview
+      Cells(1, 1).Select
+End Sub

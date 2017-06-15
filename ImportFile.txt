@@ -1,0 +1,23 @@
+Sub importfile()
+Dim selectedfile As String
+Dim wb1 As Workbook
+Set wb1 = ThisWorkbook
+
+With Application.FileDialog(msoFileDialogFilePicker)
+.AllowMultiSelect = False
+.Title = "Select an Excel file"
+.ButtonName = "Import"
+.InitialFileName = "C:\"
+If .Show = -1 Then
+selectedfile = .SelectedItems(1)
+MsgBox (selectedfile & " - File path has been set!")
+wb1.Sheets(1).Range("AB1").Value = selectedfile
+wb1.Sheets(1).Range("AB3:AB500").ClearContents
+
+Else
+Exit Sub
+End If
+End With
+Application.Run ("Listassays")
+Application.Run ("Listlots")
+End Sub

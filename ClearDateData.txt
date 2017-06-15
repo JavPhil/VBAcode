@@ -1,0 +1,32 @@
+Option Explicit
+Sub ClearDateData()
+Dim wb1 As Workbook
+Set wb1 = ThisWorkbook
+
+
+If MsgBox("Would you like to clear data cells?", vbYesNo) = vbYes Then
+    wb1.Sheets(1).Range("B4:B503").ClearContents
+    wb1.Sheets(1).Range("C4:C503").ClearContents
+    wb1.Sheets(1).Range("AB1:AB1").ClearContents
+    wb1.Sheets(1).Range("M4:M5").ClearContents
+    wb1.Sheets(1).Range("A2").ClearContents
+    wb1.Sheets(1).Range("AB3:AB5000").ClearContents
+    wb1.Sheets(1).Application.Goto Reference:=Range("A1"), Scroll:=True
+ 
+   
+    wb1.Sheets(2).Range("B4:B503").ClearContents
+    wb1.Sheets(2).Range("C4:C503").ClearContents
+    wb1.Sheets(2).Range("M4:M5").ClearContents
+    wb1.Sheets(2).Application.Goto Reference:=Range("A1"), Scroll:=True
+   
+   
+    wb1.Sheets(3).Range("B4:B503").ClearContents
+    wb1.Sheets(3).Range("C4:C503").ClearContents
+    wb1.Sheets(3).Range("M4:M5").ClearContents
+    wb1.Sheets(3).Application.Goto Reference:=Range("A1"), Scroll:=True
+    wb1.Sheets(1).Application.Goto Reference:=Range("A1"), Scroll:=True
+    wb1.Sheets(1).Range("A2").Select
+    Else
+           
+    End If
+End Sub

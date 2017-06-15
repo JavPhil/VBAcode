@@ -1,0 +1,39 @@
+Option Explicit
+
+Sub ScaleAxes()
+Dim mainworkBook As Workbook
+Set mainworkBook = ActiveWorkbook
+If Range("J21").Value = "0" Then
+    MsgBox ("Please enter data.")
+   
+Else
+ActiveSheet.Unprotect Password:="JP123"
+Range("R6").Value = 1
+Range("Q7").Value = 1
+ActiveSheet.ChartObjects(1).Activate
+  With ActiveChart.Axes(xlCategory, xlPrimary)
+    .TickLabels.NumberFormat = "0"
+    .TickLabels.Orientation = 0
+    .MaximumScale = ActiveSheet.Range("E12").Value
+    .MinimumScale = ActiveSheet.Range("E11").Value
+    .MajorUnit = ActiveSheet.Range("E34").Value
+  End With
+  With ActiveChart.Axes(xlValue, xlPrimary)
+    .MaximumScale = ActiveSheet.Range("E31").Value
+    .MinimumScale = ActiveSheet.Range("E32").Value
+    .MajorUnit = ActiveSheet.Range("E35").Value
+  End With
+  ActiveSheet.Range("B4:B503").Locked = False
+  ActiveSheet.Range("C4:C503").Locked = False
+  With ActiveSheet
+    .Columns("C:C").HorizontalAlignment = xlCenter
+    .Columns("B:B").VerticalAlignment = xlCenter
+    .Columns("C:C").VerticalAlignment = xlCenter
+    .Columns("B:B").HorizontalAlignment = xlCenter
+  End With
+  Range("B:C").Font.Name = "Times New Roman"
+  Range("B:C").Font.Size = 11
+  ActiveSheet.Range("B4:B503").NumberFormat = "mm/dd/yyyy"
+       ActiveSheet.Protect Password:="JP123"
+       End If
+End Sub
